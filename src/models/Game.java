@@ -87,15 +87,16 @@ public class Game {
 
         }else{
             //send the last move details to map for update
-
             gameWinningStrategy.updateMaps(board, moves.get(moves.size()-1).getCell() );
             boardState.remove(boardState.size()-1);
             moves.remove(moves.size()-1);
-            //boardState.get(boardState.size()-1).display();
-            board=boardState.get(boardState.size()-1);
+            //System.out.println("THIS is the state of board after last state removal");
+            boardState.get(boardState.size()-1).display();
+           // System.out.println("display done. assigning the above board to the new board state");
+            board= boardState.get(boardState.size()-1).deepCopy(this.board.getDimension());
             System.out.println("Last undo was success");
             board.display();
-            nextPlayerIndex=nextPlayerIndex-1;
+            nextPlayerIndex=(nextPlayerIndex-1 + players.size())%players.size();
         }
 
     }
@@ -118,6 +119,8 @@ public class Game {
         boardState.add(this.board.deepCopy(this.board.getDimension()));
 
         System.out.println("Done added to board state ");
+        System.out.println("Printing the list ");
+        board.stateDisplay(boardState);
 
         if (gameWinningStrategy.checkWinner(board, players.get(nextPlayerIndex), finalMove.getCell()) ) {
                   gameStatus = GameStatus.ENDED;

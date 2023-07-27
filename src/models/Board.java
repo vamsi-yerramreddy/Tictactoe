@@ -24,7 +24,6 @@ public class Board  {
     }
       public Board deepCopy(int dimension) {
           Board clonedBoard = new Board(dimension);
-
           // Perform a deep copy of the board's cells and their states
           for (int row = 0; row < dimension; row++) {
               for (int col = 0; col < dimension; col++) {
@@ -41,8 +40,14 @@ public class Board  {
                   clonedBoard.getBoard().get(row).set(col, clonedCell);
               }
           }
-
           return clonedBoard;
+      }
+      public void stateDisplay(List<Board> boardState){
+          for(int i=0;i<boardState.size();++i){
+              System.out.println("state of board"+ i);
+              boardState.get(i).display();
+              System.out.println("#$#$#$#$#####################################");
+          }
       }
 
 
