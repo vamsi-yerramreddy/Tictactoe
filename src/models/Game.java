@@ -90,9 +90,7 @@ public class Game {
             gameWinningStrategy.updateMaps(board, moves.get(moves.size()-1).getCell() );
             boardState.remove(boardState.size()-1);
             moves.remove(moves.size()-1);
-            //System.out.println("THIS is the state of board after last state removal");
             boardState.get(boardState.size()-1).display();
-           // System.out.println("display done. assigning the above board to the new board state");
             board= boardState.get(boardState.size()-1).deepCopy(this.board.getDimension());
             System.out.println("Last undo was success");
             board.display();
@@ -107,20 +105,19 @@ public class Game {
         Move move = toMovePlayer.decideMove(this.board);
         int row = move.getCell().getRow();
         int col = move.getCell().getCol();
-        System.out.println("Move happened at : " + row +" row and at " +
-                col );
+      //  System.out.println("Move happened at : " + row +" row and at " +col );
         board.getBoard().get(row).get(col).setCellState(CellState.OCCUPIED);
         board.getBoard().get(row).get(col).setPlayer(players.get(nextPlayerIndex));
 
         Move finalMove= new Move(players.get(nextPlayerIndex), board.getBoard().get(row).get(col));
 
         this.moves.add(finalMove);
-        System.out.println("Before adding to state");
         boardState.add(this.board.deepCopy(this.board.getDimension()));
 
-        System.out.println("Done added to board state ");
-        System.out.println("Printing the list ");
-        board.stateDisplay(boardState);
+            /*
+            Uncomment the below line to see the state of the board after each move is made
+            */
+           // board.stateDisplay(boardState);
 
         if (gameWinningStrategy.checkWinner(board, players.get(nextPlayerIndex), finalMove.getCell()) ) {
                   gameStatus = GameStatus.ENDED;
@@ -159,10 +156,10 @@ public class Game {
         }
         public boolean valid() throws InvalidConstructorParametersException {
                 if(this.dimension<3){
-                    throw new InvalidConstructorParametersException("dim must be more than or equal to 3");
+                    throw new InvalidConstructorParametersException("Dimensions must be more than or equal to 3");
                 }
                 if(this.players.size()!= this.dimension-1){
-                    throw new InvalidConstructorParametersException("number of players must be size -1");
+                    throw new InvalidConstructorParametersException("Number of players must be size -1");
                 }
 
 

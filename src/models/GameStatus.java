@@ -4,6 +4,4 @@ public enum GameStatus {
     DRAW,
     IN_PROGRESS,
     ENDED
-
-
 }
